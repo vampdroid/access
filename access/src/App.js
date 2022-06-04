@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Routes, useParams } from 'react-router-
 import {AllRoutes} from './AllRoutes';
 import { Login } from './Pages/Login/Login';
 import { Register } from './Pages/Register/Register';
+import { IsLoggedIn } from './Components/IsLoggedIn';
 
 function App() {
   const [theme, settheme] = useState("dark")
@@ -22,9 +23,13 @@ function App() {
     }
   }
 
+  function getTheme()
+  {
+    return theme;
+  }
+
   return (
     <Router>
-     
       <Routes>
       <Route path="/login" element={<Login />}/>
       <Route path="/register" element={<Register/>}/>

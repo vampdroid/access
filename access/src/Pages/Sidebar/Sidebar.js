@@ -5,6 +5,8 @@ import { FaHome,FaDatabase,FaThList,FaPlusCircle,FaSocks,FaUserAlt,FaCheckCircle
 import { SidebarItem } from '../../Components/SidebarItem/SidebarItem';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import { IsLoggedIn } from '../../Components/IsLoggedIn';
+import './Sidebar.css'
 
 export const Sidebar = (props) => {
     let [current,setcurrent] = useState(props.current);
@@ -12,6 +14,10 @@ export const Sidebar = (props) => {
     {
         setcurrent(i);
         console.log(i);
+    }
+    function handleLogout()
+    {
+      localStorage.setItem('isLogin',false);
     }
     return (
         <>
@@ -74,7 +80,7 @@ export const Sidebar = (props) => {
       <div className={`d-flex align-items-center text-${props.theme=='light'?'dark':'light'} text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false" `}>
         <img src="https://github.com/vampdroid.png" alt="" width="32" height="32" className="rounded-circle me-2"/>
         <strong>Yash Kukreja</strong>
-        <Link to='/login' className={`text-${props.theme=='light'?'dark':'light'} text-decoration-none`} style={{marginLeft:'40px'}}>Logout</Link>
+        <Link to='/login' className={`text-${props.theme=='light'?'dark':'light'} text-decoration-none`} style={{marginLeft:'40px'}} onClick={()=>handleLogout()}>Logout</Link>
         <br/>
       </div>
       <ul className={`dropdown-menu dropdown-menu-${props.theme} text-small shadow" aria-labelledby="dropdownUser1"`}>

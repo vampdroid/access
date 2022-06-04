@@ -7,7 +7,7 @@ export const AccessedData = (props) => {
     <div style={{ width: "280px" }}>
     <Sidebar theme={props.theme} settheme={props.settheme} current="3" />
     </div>
-    <div className={`bg-${props.theme}`}>
+    <div className={`  p-3 bg-${props.theme}`}>
     <PageTitle title="Accessible Data" theme={props.theme}/>
     </div>
     </div>

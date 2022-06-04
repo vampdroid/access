@@ -8,7 +8,7 @@ export const AccessRequest = (props) => {
     <div style={{ width: "280px" }}>
     <Sidebar theme={props.theme} settheme={props.settheme} current="0" />
     </div>
-    <div className={`bg-${props.theme}`}>
+    <div className={`  p-3 bg-${props.theme}`}>
     <PageTitle title="Data Accesss Requests" theme={props.theme}/>
     </div>
     </div>
