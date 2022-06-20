@@ -1,3 +1,4 @@
+import { eventWrapper } from '@testing-library/user-event/dist/utils'
 import React,{useState} from 'react'
 import { Link,Redirect } from 'react-router-dom'
 import { DangerAlert } from '../../Components/Alert/DangerAlert'
@@ -6,13 +7,28 @@ export const Login = () => {
     const [email, setemail] = useState("")
     const [password, setpassword] = useState("")
     const [errorText, seterrorText] = useState("")
-    function controlLogin(){
+        //JWT is pending
+    async function controlLogin(event){
+
+        event.preventDefault();
 
         if(errorText=="" && email!="" && password!="")
         {
-            let user = JSON.parse(localStorage.getItem("userDetails"));
+            
+            let result = await fetch(`http://localhost:5000/user/verify-user`,{
+                method:'POST',
+                headers:{
+                    'Content-Type': 'application/json',
+                },
+                body:JSON.stringify({
+                    email,
+                    password,
+                })
+              })
+              let user = await result.json();
+      //      let user = JSON.parse(localStorage.getItem("userDetails"));
             console.log(user);
-            if(user.email==email && user.password==password)
+            if(user.email===email && user.password===password)
             {
                 window.location.href = '/'
                 localStorage.setItem('isLogin',true);
@@ -73,7 +89,7 @@ export const Login = () => {
             <input className='form-control w-50 m-2' type="text" onChange={(e)=>handleEmail(e)} placeholder='Email ID'></input> 
             <input className='form-control w-50 m-2' type="password" onChange={(e)=>handlePassword(e)} placeholder='Password'></input>
             <DangerAlert text={errorText}/>
-            <div className="btn btn-primary m-2 w-50" onClick={()=>controlLogin()}>Login</div> 
+            <div className="btn btn-primary m-2 w-50" onClick={(e)=>controlLogin(e)}>Login</div> 
             <Link to='/register' className="btn btn-outline-primary m-2 w-50">
                 Create New Account
             </Link>

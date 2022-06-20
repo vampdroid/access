@@ -1,4 +1,5 @@
 import React from 'react'
+// require('dotenv').config()
 import { Link } from 'react-router-dom'
 import logo from '../../lightlogo.svg'
 import {useState} from 'react';
@@ -9,12 +10,35 @@ export const Register = () => {
     const [lname, setlname] = useState("")
     const [password, setpassword] = useState("")
     const [errorText, seterrorText] = useState("")
-    function controlRegister()
+    //JWT is pending
+    async function controlRegister(event)
     {
+        event.preventDefault();
         if(errorText=="" && email!="" && fname!="" && lname!="" && password!="")
         {
-            localStorage.setItem("userDetails",JSON.stringify({"email":email,"fname":fname,"lname":lname,"password":password}));
-            window.location.href = '/'
+          //  localStorage.setItem("userDetails",JSON.stringify({"email":email,"fname":fname,"lname":lname,"password":password}));
+          
+          const result = await fetch(`http://localhost:5000/user/create-user`,{
+            method:'POST',
+            headers:{
+                'Content-Type': 'application/json',
+            },
+            body:JSON.stringify({
+                email,
+                password,
+                fname,
+                lname
+            })
+          })
+          const data = await result.json();
+          if(data.email){
+            alert("Registration Successful")
+            window.location.href = '/login'
+        }
+        else{
+            alert("Registration Failure")
+        }
+           // window.location.href = '/'
         }
         else
         {
@@ -95,7 +119,7 @@ export const Register = () => {
             <input className='form-control w-50 m-2' type="text" onChange={(e)=>handleLname(e)} placeholder='Last Name'></input>
             <input className='form-control w-50 m-2' type="password" onChange={(e)=>handlePassword(e)} placeholder='Password'></input>
             <DangerAlert text={errorText}/>
-            <div className="btn btn-primary m-2 w-50" onClick={()=>controlRegister()}>Register</div> 
+            <div className="btn btn-primary m-2 w-50" onClick={(e)=>controlRegister(e)}>Register</div> 
 
             <Link to='/login' className="btn btn-outline-primary m-2 w-50">
                 Sign In
