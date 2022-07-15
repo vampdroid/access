@@ -26,8 +26,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 const userRouter = require('./routes/users.routes');
 app.use('/user',userRouter);
 
-const categoryRouter = require('./routes/datafields.routes');
-app.use('/datafields',categoryRouter);
+const datafieldRouter = require('./routes/datafields.routes');
+app.use('/datafields',datafieldRouter);
+
+const requestRouter = require('./routes/requests.routes');
+app.use('/requests',requestRouter);
+
+const ipfsRouter = require('./routes/ipfs.routes');
+app.use('/ipfs',ipfsRouter);
 
 app.listen(process.env.PORT,()=>{
   console.log(`Server is running on port:${process.env.PORT}`);

@@ -9,6 +9,9 @@ import { IsLoggedIn } from '../../Components/IsLoggedIn';
 import './Sidebar.css'
 
 export const Sidebar = (props) => {
+  
+  const token = localStorage.getItem('token');
+
     let [current,setcurrent] = useState(props.current);
     function changeCurrent(i)
     {
@@ -18,7 +21,11 @@ export const Sidebar = (props) => {
     function handleLogout()
     {
       localStorage.setItem('isLogin',false);
+      localStorage.removeItem('token');
+      localStorage.removeItem('userId');
+      window.location.href='/'
     }
+
     return (
         <>
             {/* <div className="collapse" id="navbarToggleExternalContent">
@@ -36,7 +43,6 @@ export const Sidebar = (props) => {
             </nav> */}
             <div className={`d-flex flex-column sidebar flex-shrink-0 p-3 text-${props.theme=='light'?'dark':'light'} bg-${props.theme}`} style={{width:"280px",minHeight:"100vh",position:"fixed"}}>
     <Link to="/" className={`d-flex align-items-center mb-3 mb-md-0 me-md-auto text-${props.theme=='light'?'dark':'light'} text-decoration-none`}>
-     
       <span className="fs-4">{ props.theme == "light"? <img src={darklogo} style={{height:"35px"}} /> :  <img src={lightlogo} style={{height:"35px"}} />} Access</span>
     </Link>
     <hr/>

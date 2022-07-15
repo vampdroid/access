@@ -4,10 +4,17 @@ import { Link,Redirect } from 'react-router-dom'
 import { DangerAlert } from '../../Components/Alert/DangerAlert'
 import logo from '../../lightlogo.svg'
 export const Login = () => {
+    
     const [email, setemail] = useState("")
     const [password, setpassword] = useState("")
     const [errorText, seterrorText] = useState("")
         //JWT is pending
+
+    const token = localStorage.getItem('token')
+    if(token)
+    {
+        window.location.href='/accessrequest'
+    }
     async function controlLogin(event){
 
         event.preventDefault();
@@ -15,7 +22,7 @@ export const Login = () => {
         if(errorText=="" && email!="" && password!="")
         {
             
-            let result = await fetch(`http://localhost:5000/user/verify-user`,{
+            let result = await fetch(`http://localhost:5000/user/login`,{
                 method:'POST',
                 headers:{
                     'Content-Type': 'application/json',
@@ -28,10 +35,12 @@ export const Login = () => {
               let user = await result.json();
       //      let user = JSON.parse(localStorage.getItem("userDetails"));
             console.log(user);
-            if(user.email===email && user.password===password)
+            if(user.token)
             {
                 window.location.href = '/'
                 localStorage.setItem('isLogin',true);
+                localStorage.setItem('token',user.token);
+                localStorage.setItem('userId',user.user);
             }
             else
             {

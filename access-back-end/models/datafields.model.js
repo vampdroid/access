@@ -16,11 +16,11 @@ const datafields = mongoose.Schema({
     },
     field_name:{
         type:String,
-        required:true
+        //required:true
     },
     field_value_address:{
         type:String,
-        required:true
+        //required:true
     }
 })
 

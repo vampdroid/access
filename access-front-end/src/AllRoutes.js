@@ -9,13 +9,19 @@ import { YourData } from "./Pages/YourData/YourData";
 import { Register } from "./Pages/Register/Register";
 import { Login } from "./Pages/Login/Login";
 import { Sidebar } from "./Pages/Sidebar/Sidebar";
+import { YourDataa } from "./Pages/YourData/YourDataa";
+import { RequestDataa } from "./Pages/RequestData/RequestDataa";
 
 export const AllRoutes = (props) => {
+    const token = localStorage.getItem('token');
+    
+    // if(!token){
+    //     window.location.href = '/'
+    // }
     return (
-
                     <Routes>
-                        <Route path="/" element={<AccessRequest theme={props.theme} settheme={props.settheme} />} />
-                        <Route path="/yourdata" element={<YourData theme={props.theme} settheme={props.settheme} />} />
+                        <Route path="/accessrequest" element={<AccessRequest theme={props.theme} settheme={props.settheme} />} />
+                        <Route path="/yourdata" element={<YourDataa theme={props.theme} settheme={props.settheme} />} />
                         <Route path="/requestdata" element={<RequestData theme={props.theme} settheme={props.settheme}/>} />
                         <Route path="/accessibledata" element={<AccessedData theme={props.theme} settheme={props.settheme}/>} />
                     </Routes>

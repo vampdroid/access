@@ -7,8 +7,12 @@ import {AllRoutes} from './AllRoutes';
 import { Login } from './Pages/Login/Login';
 import { Register } from './Pages/Register/Register';
 import { IsLoggedIn } from './Components/IsLoggedIn';
+import { EmailVerified } from './Pages/Register/EmailVerified';
 
 function App() {
+ 
+
+
   const [theme, settheme] = useState("dark")
   let params = useParams();
   console.log(params);
@@ -31,8 +35,9 @@ function App() {
   return (
     <Router>
       <Routes>
-      <Route path="/login" element={<Login />}/>
+      <Route path="/" element={<Login />}/>
       <Route path="/register" element={<Register/>}/>
+      <Route path=":id/verify-user/:token" element={<EmailVerified/>}></Route>
       </Routes>
       <AllRoutes theme={theme} settheme={changeTheme}/>
     </Router>
